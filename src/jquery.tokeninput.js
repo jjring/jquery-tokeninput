@@ -60,6 +60,12 @@
     allowTabOut: false,
     autoSelectFirstResult: false,
 
+    // Text Correction settings
+    autocomplete: false,
+    autocapitalize: false,
+    autocorrect: false,
+    spellcheck: false,
+    
     // Callbacks
     onResult: null,
     onCachedResult: null,
@@ -251,8 +257,37 @@
       var timeout;
       var input_val;
 
+      //Create text correction string
+      var textCorrection = "";
+      if ($(input).data("settings").autocomplete) {
+        textCorrection += "autocomplete=\"on\" ";
+      } else {
+        textCorrection += "autocomplete=\"off\" ";
+      }
+      if ($(input).data("settings").autocapitalize)
+      {
+        textCorrection += "autocapitalize=\"on\" ";
+      } else
+      {
+        textCorrection += "autocapitalize=\"off\" ";
+      }
+      if ($(input).data("settings").autocorrect)
+      {
+        textCorrection += "autocorrect=\"on\" ";
+      } else
+      {
+        textCorrection += "autocorrect=\"off\" ";
+      }
+      if ($(input).data("settings").spellcheck)
+      {
+        textCorrection += "spellcheck=\"on\" ";
+      } else
+      {
+        textCorrection += "spellcheck=\"off\" ";
+      }
+      
       // Create a new text input an attach keyup events
-      var input_box = $("<input type=\"text\" autocomplete=\"off\" autocapitalize=\"off\"/>")
+      var input_box = $("<input type=\"text\" " + textCorrection + "/>")
           .css({
               outline: "none"
           })
